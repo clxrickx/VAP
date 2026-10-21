@@ -1,8 +1,10 @@
 dt = 1/60 -- 60hz tick rate
 null = 0
 
+attZ = {I = 0, prev = 0}
+attY = {I = 0, prev = 0}
 tvcX = {I = 0, prev = 0}
-tvcY = {I = 0, prev = 0}
+tvcZ = {I = 0, prev = 0}
 thr = {I = 0, prev = 0}
 
 function PID(state, sp, pv, Kp, Ki, Kd)
@@ -39,8 +41,7 @@ function onTick()
     land_x = null
     land_z = null
 
-    errX = land_x - x
-    errZ = land_z - z
+
 
     -- OUTPUTS
     output.setNumber(1, x)
@@ -52,4 +53,5 @@ function onTick()
     output.setNumber(7, Xr)
     output.setNumber(8, hdg)
     output.setNumber(9, ra)
+    output.setNumber()
 end
