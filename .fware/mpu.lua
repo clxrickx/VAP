@@ -1,3 +1,7 @@
+tvcX = {I = 0, prev = 0}
+tvcY = {I = 0, prev = 0}
+thr = {I = 0, prev = 0}
+
 function PID(state, sp, pv, Kp, Ki, Kd)
     local err = sp - pv
 

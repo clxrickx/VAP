@@ -24,13 +24,13 @@ function onTick()
     errZ = land_z - z
 
     -- OUTPUTS
-    x = output.setNumber(1, x)
-    y = output.setNumber(2, y)
-    z = output.setNumber(3, z)
-    linV = output.setNumber(4, linV)
-    angV = output.setNumber(5, angV)
-    Zr = output.setNumber(6, Zr)
-    Xr = output.setNumber(7, Xr)
-    hdg = output.setNumber(8, hdg)
-    ra = output.setNumber(9, ra)
+    output.setNumber(1, x)
+    output.setNumber(2, y)
+    output.setNumber(3, z)
+    output.setNumber(4, linV)
+    output.setNumber(5, angV)
+    output.setNumber(6, Zr)
+    output.setNumber(7, Xr)
+    output.setNumber(8, hdg)
+    output.setNumber(9, ra)
 end
