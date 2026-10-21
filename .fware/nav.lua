@@ -1,11 +1,11 @@
 dt = 1/60 -- 60hz tick rate
 null = 0
 
-attZ = {I = 0, prev = 0}
-attY = {I = 0, prev = 0}
-tvcX = {I = 0, prev = 0}
-tvcZ = {I = 0, prev = 0}
-thr = {I = 0, prev = 0}
+local attX = {I = 0, prev = 0}
+local attZ = {I = 0, prev = 0}
+local tvcX = {I = 0, prev = 0}
+local tvcZ = {I = 0, prev = 0}
+local thr = {I = 0, prev = 0}
 
 function PID(state, sp, pv, Kp, Ki, Kd)
     local err = sp - pv
@@ -26,6 +26,10 @@ function resetPID(state)
     state.prev = 0
 end
 
+function clamp(v, lo, hi)
+    return math.max(lo, math.min(hi, v))
+end
+
 function onTick()
     -- IMU/RA IN
     x = input.getNumber(1)
@@ -41,7 +45,11 @@ function onTick()
     land_x = null
     land_z = null
 
+    attitX = PID(attX, land_x, x, 1, 0, 0)
+    attitZ = PID(attZ, land_z, z, 1, 0, 0)
 
+    vectorX = PID(tvcX, attitX, Xr, 1, 0, 0)
+    vectorZ = PID(tvcZ, attitZ, Zr, 1, 0, 0)
 
     -- OUTPUTS
     output.setNumber(1, x)
@@ -53,5 +61,6 @@ function onTick()
     output.setNumber(7, Xr)
     output.setNumber(8, hdg)
     output.setNumber(9, ra)
-    output.setNumber()
+    output.setNumber(10, vectorX)
+    output.setNumber(11, vectorZ)
 end
