@@ -1,3 +1,5 @@
+prevY = 0
+
 function onTick()
     -- NAV IN
     x = input.getNumber(1)
@@ -21,7 +23,11 @@ function onTick()
 
     launch = input.getBool(1)
 
+    vspd = prevY - y
+    prevY = y
 
+    dX = vectorX - servoX
+    dZ = vectorZ - servoZ
 
     output.setNumber(1, x)
     output.setNumber(2, y)
@@ -35,11 +41,15 @@ function onTick()
     output.setNumber(10, vectorX)
     output.setNumber(11, vectorZ)
     output.setNumber(12, thr)
-    output.setNumber(13, servoX)
-    output.setNumber(14, servoZ)
-    output.setNumber(15, jetPressure)
-    output.setNumber(16, fuel)
-    output.setNumber(17, bat)
+    output.setNumber(13, stage)
+    output.setNumber(14, servoX)
+    output.setNumber(15, servoZ)
+    output.setNumber(16, jetPressure)
+    output.setNumber(17, fuel)
+    output.setNumber(18, bat)
+    output.setNumber(19, vspd)
+    output.setNumber(20, dX)
+    output.setNumber(21, dZ)
 
     output.setBool(1, launch)
 end

@@ -12,7 +12,7 @@ Internal Distances:<br>
  - TVC Pistons: Range of Deflection (-0.5, 0.5) <br>
 
 Angles: Radians<br>
-Vertical Speed: Metres per Second<br>
+Speed: Metres per Second<br>
 Liquid: Litres<br>
 
 # Code Formatting
