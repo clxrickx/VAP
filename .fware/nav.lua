@@ -4,24 +4,6 @@ null = 0
 local att_x = {I = 0, prev = 0}
 local att_z = {I = 0, prev = 0}
 
-function PID(state, sp, pv, Kp, Ki, Kd)
-    local err = sp - pv
-
-    local p = err
-    state.I = state.I + (err * dt)
-    local i = state.I
-    local d = (err - state.prev) / dt
-
-    state.prev = err
-
-    local output = (p * Kp) + (i * Ki) + (d * Kd)
-    return output
-end
-
-function resetPID(state)
-    state.I = 0
-    state.prev = 0
-end
 
 function onTick()
     -- IMU/RA IN
@@ -38,11 +20,8 @@ function onTick()
     land_x = null
     land_z = null
 
-    tarAttX = PID(att_x, land_x, Xr, 1, 0, 0) --direct error calc for now, PID may not be needed here
-    tarAttZ = PID(att_z, land_z, Xr, 1, 0, 0) -- "
-
-    --rotate angles across the current heading of the rocket
-
+    errX = land_x - x
+    errZ = land_z - z
 
     -- OUTPUTS
     x = output.setNumber(1, x)
