@@ -40,5 +40,4 @@ function onTick()
     land_x = null
     land_z = null
 
-    
 end
