@@ -15,7 +15,7 @@ Vertical Speed: Metres per Second<br>
 Liquid: Litres<br>
 
 # Code Formatting
-camelCase is standard, unless a subscript is present in a variable(e.g. K_p would be Kp). Constants used only within a subsystem should be declared local and placed within the subsystem.
+camelCase is standard, unless a subscript is present in a variable(e.g. K_p would be Kp). Constants used only within a subsystem should be declared local and placed within the subsystem. ```null``` is used when declaring a value is non-existent; more commonly because you haven't gotten to assigning it's value yet. 0 should only be used if that is the actual, final value for the variable(e.g. a TVC setpoint of 0 would be acceptable, but you should set it to ```null``` if you have not gotten to assigning it's value yet).
 
 # Physics Sensor Composite Outputs
 1 - X Position
