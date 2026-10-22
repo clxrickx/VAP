@@ -26,10 +26,10 @@ function onTick()
 end
 
 function onDraw()
-    if (bat < 0.5) or (fuel < 50) then --caution
-        screen.setColor(155, 155, 0)
-    elseif (bat < 0.15) or (fuel < 10)then --warning
+    if (bat < 0.15) or (fuel < 10)then --warning
         screen.setColor(155, 0, 0)
+    elseif (bat < 0.5) or (fuel < 50) then --caution
+        screen.setColor(155, 155, 0)
     else --normal
         screen.setColor(0, 155, 0)
     end

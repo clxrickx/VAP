@@ -35,21 +35,23 @@ function onTick()
     x = input.getNumber(1)
     y = input.getNumber(2)
     z = input.getNumber(3)
+    rotY = input.getNumber(5)
     linV = input.getNumber(13)
     angV = input.getNumber(14)
     Zr = input.getNumber(15)
     Xr = input.getNumber(16)
-    hdg = input.getNumber(17)
     ra = input.getNumber(18)
 
     land_x = null
     land_z = null
 
-    attitX = PID(attX, land_x, x, 1, 0, 0)
-    attitZ = PID(attZ, land_z, z, 1, 0, 0)
+    attitX = clamp(PID(attX, land_x, x, 1, 0, 0), -0.3, 0.3) --prevent huge pitchovers
+    attitZ = clamp(PID(attZ, land_z, z, 1, 0, 0), -0.3, 0.3)
 
-    vectorX = PID(tvcX, -attitX, Xr, 1, 0, 0) --invert
-    vectorZ = PID(tvcZ, -attitZ, Zr, 1, 0, 0)
+    vecX = PID(tvcX, -attitX, Xr, 0.5, 0, 0) --invert bc pos/tilt x/z are inverted
+    vecZ = PID(tvcZ, -attitZ, Zr, 0.5, 0, 0)
+
+    vectorZ = clamp(vecX, -0.4, 0.4)
 
     -- OUTPUTS
     output.setNumber(1, x)
@@ -59,7 +61,7 @@ function onTick()
     output.setNumber(5, angV)
     output.setNumber(6, Zr)
     output.setNumber(7, Xr)
-    output.setNumber(8, hdg)
+    output.setNumber(8, rotY)
     output.setNumber(9, ra)
     output.setNumber(10, vectorX)
     output.setNumber(11, vectorZ)

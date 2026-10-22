@@ -1,7 +1,16 @@
 null = 0
+dt = 1/60
 
+prev_error = 0
+i = 0
 function PIDthr(sp, pv, Kp, Ki, Kd)
+    err = sp - pv
+    local p = err
+    local i = i + (err * dt)
+    local d = (err - prev_error) / dt
 
+    prev_error  = err
+    return (p * Kp) + (i * Ki) + (d * Kd)
 end
 
 function onTick()
@@ -13,14 +22,45 @@ function onTick()
     angV = input.getNumber(5)
     Zr = input.getNumber(6)
     Xr = input.getNumber(7)
-    hdg = input.getNumber(8)
+    rotY = input.getNumber(8)
     ra = input.getNumber(9)
     vectorX = input.getNumber(10)
     vectorZ = input.getNumber(11)
 
     launch = input.getBool(1)
+    
+    vspd = prevY - y
+    prevY = y
+
 
     --add stage machine and throttle
+    -- STAGE MACHINE
+    launch_edge = launch and not prev_launch
+    prev_launch = launch
+
+    if y < 10 and not launch then --ground idle
+        stage = 0
+    elseif y < 100 and launch_edge then --powered flight
+        stage = 1
+    elseif stage == 1 then --stay in powered flight if conditions are still met
+        stage = 1
+    elseif y > 100 and vspd > 1 then --unpowered flight
+        stage = 2
+    elseif vspd < 1 and y < 50 then --powered descent
+        stage = 3
+    elseif y < 12 then --cutoff
+        stage = 4
+    else 
+        stage = 4 --cutoff
+    end
+
+    if stage == (0 or 2 or 4) then
+        thr = 0
+    elseif stage == 1 then
+        thr = 1
+    elseif stage == 3 then
+        thr = PIDthr(-300, vspd, 1, 0, 0)
+    end
 
     output.setNumber(1, x)
     output.setNumber(2, y)
@@ -29,11 +69,14 @@ function onTick()
     output.setNumber(5, angV)
     output.setNumber(6, Zr)
     output.setNumber(7, Xr)
-    output.setNumber(8, hdg)
+    output.setNumber(8, rotY)
     output.setNumber(9, ra)
     output.setNumber(10, vectorX)
     output.setNumber(11, vectorZ)
-    output.setNumber(12, null) -- throttle
-    output.setNumber(13, null) -- stage
+    output.setNumber(12, thr) -- throttle
+    output.setNumber(13, stage) -- stage
     output.setBool(1, launch)
+
+    output.setNumber(22, -vectorX)
+    output.setNumber(23, -vectorZ)
 end

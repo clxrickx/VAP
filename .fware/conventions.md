@@ -11,7 +11,7 @@ External Distances: Metres<br>
 Internal Distances:<br>
  - TVC Pistons: Range of Deflection (-0.5, 0.5) <br>
 
-Angles: Degrees<br>
+Angles: (1, -1)(INT), Degrees(EXT)<br>
 Speed: Metres per Second<br>
 Liquid: Litres<br>
 
