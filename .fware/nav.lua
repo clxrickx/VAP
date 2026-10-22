@@ -48,8 +48,8 @@ function onTick()
     attitX = PID(attX, land_x, x, 1, 0, 0)
     attitZ = PID(attZ, land_z, z, 1, 0, 0)
 
-    vectorX = PID(tvcX, attitX, Xr, 1, 0, 0)
-    vectorZ = PID(tvcZ, attitZ, Zr, 1, 0, 0)
+    vectorX = PID(tvcX, -attitX, Xr, 1, 0, 0) --invert
+    vectorZ = PID(tvcZ, -attitZ, Zr, 1, 0, 0)
 
     -- OUTPUTS
     output.setNumber(1, x)

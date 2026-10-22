@@ -23,7 +23,9 @@ function onTick()
 
     launch = input.getBool(1)
 
-    -- ERRORS/CAUTIONS
+end
+
+function onDraw()
     if (bat < 0.5) or (fuel < 50) then --caution
         screen.setColor(155, 155, 0)
     elseif (bat < 0.15) or (fuel < 10)then --warning
@@ -31,16 +33,13 @@ function onTick()
     else --normal
         screen.setColor(0, 155, 0)
     end
-end
-
-function onDraw()
     screen.drawRectF(1, 1, 160, 4)
     screen.setColor(255, 255, 255)
     
     screen.drawText(3, 8, "X:" .. string.format("%.0f", x))
-    screen.drawText(35, 8, "Y:" .. string.format("%.0f", y))
-    screen.drawText(67, 8, "Z:" .. string.format("%.0f", z))
+    screen.drawText(45, 8, "Y:" .. string.format("%.0f", y))
+    screen.drawText(77, 8, "Z:" .. string.format("%.0f", z))
 
-    screen.drawText(3, 16, "Xr:" .. string.format("%.2f", Xr))
-    screen.drawText(3, 16, "Zr:" .. string.format("%.2f", Zr))
+    screen.drawText(3, 16, "Xr:" .. string.format("%.0f", Xr * 360))
+    screen.drawText(50, 16, "Zr:" .. string.format("%.0f", Zr * 360))
 end
