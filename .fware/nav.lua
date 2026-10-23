@@ -42,16 +42,17 @@ function onTick()
     Xr = input.getNumber(16)
     ra = input.getNumber(18)
 
-    land_x = null
-    land_z = null
+    land_x = -15100
+    land_z = 6040
 
-    attitX = clamp(PID(attX, land_x, x, 1, 0, 0), -0.3, 0.3) --prevent huge pitchovers
-    attitZ = clamp(PID(attZ, land_z, z, 1, 0, 0), -0.3, 0.3)
+    attitX = clamp(PID(attX, land_x, x, 1, 0, 0), -0.1, 0.1) --prevent huge pitchovers
+    attitZ = clamp(PID(attZ, land_z, z, 1, 0, 0), -0.1, 0.1)
 
-    vecX = PID(tvcX, -attitX, Xr, 0.5, 0, 0) --invert bc pos/tilt x/z are inverted
-    vecZ = PID(tvcZ, -attitZ, Zr, 0.5, 0, 0)
+    vecX = PID(tvcX, -attitX, Xr, 10, 0, 0) --invert bc pos/tilt x/z are inverted
+    vecZ = PID(tvcZ, -attitZ, Zr, 10, 0, 0)
 
-    vectorZ = clamp(vecX, -0.4, 0.4)
+    vectorX = clamp(vecX, -0.4, 0.4)
+    vectorZ = clamp(vecZ, -0.4, 0.4)
 
     -- OUTPUTS
     output.setNumber(1, x)

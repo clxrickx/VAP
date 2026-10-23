@@ -23,7 +23,7 @@ function onTick()
 
     launch = input.getBool(1)
 
-    vspd = prevY - y
+    vspd = (y - prevY) * 60
     prevY = y
 
     dX = vectorX - servoX
@@ -56,6 +56,6 @@ end
 
 function onDraw()
     screen.setColor(255, 255, 255)
-    screen.drawText(5, 5, "S" .. stage)
+    screen.drawText(5, 5, "S" .. string.format("%.0f", stage))
     screen.drawText(5, 13, null) -- stagename
 end

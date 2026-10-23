@@ -1,6 +1,7 @@
 null = 0
 dt = 1/60
 
+prevY = 0
 prev_error = 0
 i = 0
 function PIDthr(sp, pv, Kp, Ki, Kd)
@@ -29,7 +30,7 @@ function onTick()
 
     launch = input.getBool(1)
     
-    vspd = prevY - y
+    vspd = (y - prevY) * 60
     prevY = y
 
 
@@ -54,12 +55,16 @@ function onTick()
         stage = 4 --cutoff
     end
 
-    if stage == (0 or 2 or 4) then
+    if stage == 0 or stage == 2 or stage == 4 then
         thr = 0
     elseif stage == 1 then
         thr = 1
     elseif stage == 3 then
-        thr = PIDthr(-300, vspd, 1, 0, 0)
+        thr = PIDthr(-10, vspd, 1, 0, 0)
+    end
+
+    if stage == 0 then
+        vectorX, vectorZ = 0, 0
     end
 
     output.setNumber(1, x)
@@ -77,6 +82,6 @@ function onTick()
     output.setNumber(13, stage) -- stage
     output.setBool(1, launch)
 
-    output.setNumber(22, -vectorX)
-    output.setNumber(23, -vectorZ)
+    output.setNumber(19, -vectorX)
+    output.setNumber(20, -vectorZ)
 end
