@@ -1,11 +1,8 @@
 dt = 1/60 -- 60hz tick rate
 null = 0
 
-local attX = {I = 0, prev = 0}
-local attZ = {I = 0, prev = 0}
 local tvcX = {I = 0, prev = 0}
 local tvcZ = {I = 0, prev = 0}
-local thr = {I = 0, prev = 0}
 
 function PID(state, sp, pv, Kp, Ki, Kd)
     local err = sp - pv
@@ -42,14 +39,8 @@ function onTick()
     Xr = input.getNumber(16)
     ra = input.getNumber(18)
 
-    land_x = -15100
-    land_z = 6040
-
-    attitX = clamp(PID(attX, land_x, x, 1, 0, 0), -0.1, 0.1) --prevent huge pitchovers
-    attitZ = clamp(PID(attZ, land_z, z, 1, 0, 0), -0.1, 0.1)
-
-    vecX = PID(tvcX, -attitX, Xr, 10, 0, 0) --invert bc pos/tilt x/z are inverted
-    vecZ = PID(tvcZ, -attitZ, Zr, 10, 0, 0)
+    vecX = PID(tvcX, 0, Xr, 10, 0, 0) --tune pids first before adding "active stabliziation"
+    vecZ = PID(tvcZ, 0, Zr, 10, 0, 0)
 
     vectorX = clamp(vecX, -0.4, 0.4)
     vectorZ = clamp(vecZ, -0.4, 0.4)
