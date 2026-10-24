@@ -45,6 +45,8 @@ function onDraw()
     screen.drawText(3, 16, "Xr:" .. string.format("%.0f", Xr * 360))
     screen.drawText(50, 16, "Zr:" .. string.format("%.0f", Zr * 360))
 
-    screen.drawText(3, 24, "TVCx:" .. vectorX)
-    screen.drawText(50, 24, "TVCz:" .. vectorZ)
+    screen.drawText(3, 24, "TVCx:" .. string.format("%.0f", vectorX * 10))
+    screen.drawText(50, 24, "TVCz:" .. string.format("%.0f", vectorZ * 10))
+    screen.drawText(3, 32, "SerX:" .. string.format("%.0f", servoX * 10))
+    screen.drawText(50, 32, "SerZ:" .. string.format("%.0f", servoZ * 10))
 end
