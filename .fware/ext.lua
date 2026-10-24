@@ -36,10 +36,15 @@ function onDraw()
     screen.drawRectF(1, 1, 160, 4)
     screen.setColor(255, 255, 255)
     
+    screen.drawText(3, 3, "STAGE" .. stage)
+
     screen.drawText(3, 8, "X:" .. string.format("%.0f", x))
     screen.drawText(45, 8, "Y:" .. string.format("%.0f", y))
     screen.drawText(77, 8, "Z:" .. string.format("%.0f", z))
 
     screen.drawText(3, 16, "Xr:" .. string.format("%.0f", Xr * 360))
     screen.drawText(50, 16, "Zr:" .. string.format("%.0f", Zr * 360))
+
+    screen.drawText(3, 24, "TVCx:" .. vectorX)
+    screen.drawText(50, 24, "TVCz:" .. vectorZ)
 end
