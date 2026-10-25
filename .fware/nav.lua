@@ -39,8 +39,8 @@ function onTick()
     Xr = input.getNumber(16)
     ra = input.getNumber(18)
 
-    vectorX = PID(tvcX, 0, Xr, 10, 0, 0) --tune pids first before adding "active stabliziation"
-    vectorZ = PID(tvcZ, 0, Zr, 10, 0, 0)
+    vectorX = PID(tvcX, 0, Xr, 20, 0, 1) --tune pids first before adding "active stabliziation"
+    vectorZ = PID(tvcZ, 0, Zr, 20, 0, 1)
 
     vectorX = clamp(vectorX, -0.4, 0.4)
     vectorZ = clamp(vectorZ, -0.4, 0.4)
